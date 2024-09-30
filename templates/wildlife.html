@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% block title %}
+    Wildlife
+{% endblock title %}
+{% load static %}
+
+<style>
+    .img-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .img-container img {
+        width: 100%;
+        height: auto;
+        max-width: 400px; /* Maintains max width */
+        transition: transform 0.2s ease, filter 0.2s ease;
+    }
+    .img-container img:hover {
+        filter: grayscale(1);
+        transform: scale(0.8);
+    }
+
+    #expandedImg {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+
+{% block content %}
+<section>
+    <h4>Wild Life</h4>
+    <h4>Some popular images:</h4>
+    
+        <div class='grid-wrap'>
+            <div>
+                {% for n in photo %}
+                 <img src='{{ n.image.url }}' alt='{{ n.title }}' class='myImage' data-index="{{ forloop.counter0 }}" onclick="expandImg(this)" style="width:250px;height:200px;margin:20px;">
+                {% endfor %}
+            </div>
+        </div>
+    
+</section>
+
+<div id="expandedImg" style="display:none;">
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            {% for n in photo %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src='{{ n.image.url }}' alt='{{ n.title }}' class='myImage' style="width:400px;height:250px;">
+                </div>
+            {% endfor %}
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" onclick="changeSlide(-1)">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" onclick="changeSlide(1)">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        
+    </div>
+</div>
+
+<script>
+    
+    function expandImg(imgElement) {
+        const expandedImg = document.getElementById('expandedImg');
+        
+        //Set the source of the expanded image
+        //expandedImg.style.backgroundImage = `url(${imgElement.src})`;
+        expandedImg.style.width = "500px";
+        expandedImg.style.height = "350px";
+        expandedImg.style.display = "block";
+        expandedImg.style.margin = "auto";
+        expandedImg.style.backgroundBlendMode = "multiply"; // Blend the image with white
+        expandedImg.style.position = "fixed";
+        expandedImg.style.top = "0"; // Position at top
+        expandedImg.style.left = "0"; // Position at left
+        expandedImg.style.right = "0"; // Position at right
+        expandedImg.style.bottom = "0"; // Position at bottom
+        expandedImg.style.backgroundSize = "cover"; // Fit the image
+        expandedImg.style.backgroundRepeat = "no-repeat"; // Do not repeat the image
+        expandedImg.style.cursor = "pointer"; // Change cursor to a hand when hovering over the image
+        expandedImg.style.filter = "brightness(-1.2)"; // Blend the image with white
+        //expandedImg.style.border= "2px solid black";  
+
+        //expandedImg.style.zIndex= "1001"; 
+        //Click and drag functionality
+        expandedImg.style.cursor = "move"; // Change cursor to a hand when hovering over the image
+        expandedImg.draggable = true; // Allow the image to be dragged
+        
+        //Move functionality
+        expandedImg.onmousedown = function(event) {
+            const initialX = event.clientX - parseInt(expandedImg.style.left);
+            const initialY = event.clientY - parseInt(expandedImg.style.top);
+            
+            expandedImg.onmousemove = function(event) {
+                expandedImg.style.left = (event.clientX - initialX) + "px";
+                expandedImg.style.top = (event.clientY - initialY) + "px";
+            }
+            
+            expandedImg.onmouseup = function() {
+                expandedImg.onmousemove = null;
+            }
+        }
+        
+        //Resize functionality
+        expandedImg.addEventListener("dblclick", function() {
+            expandedImg.style.width = "500px";
+            expandedImg.style.height = "500px";
+            expandedImg.style.backgroundSize = "contain";
+            expandedImg.style.backgroundRepeat = "no-repeat";
+            expandedImg.style.cursor = "move";
+            expandedImg.draggable = true;
+            expandedImg.onmousedown = null;
+            expandedImg.onmousemove = null;
+            expandedImg.onmouseup = null;
+            expandedImg.onclick = null;
+            expandedImg.style.backgroundBlendMode = null;
+            expandedImg.style.cursor = "pointer";
+            expandedImg.style.backgroundBlendMode = "multiply";
+        })
+        
+        //Close functionality
+        expandedImg.onclick = function() {
+            expandedImg.style.display = "none";
+        }
+        
+        
+        function expand(imgElement) {
+            const expandedImg = document.getElementById('expandedImg');
+            const index = imgElement.dataset.index; // Get the index from the clicked image
+        
+            // Set the source of the carousel item to show
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            
+            // Remove 'active' class from all items
+            carouselItems.forEach(item => item.classList.remove('active'));
+        
+            // Set the clicked image as active
+            carouselItems[index].classList.add('active'); // Set the clicked image as active
+        
+            // Show the expanded image carousel
+            expandedImg.style.display = "block";
+        }
+        
+    }    
+    
+         {% comment %} let currentIndex = 0; // To track the current active index
+    
+        function expandImg(imgElement) {
+            const expandedImg = document.getElementById('expandedImg');
+            currentIndex = parseInt(imgElement.dataset.index); // Set the current index based on the clicked image
+            
+            show(currentIndex); // Show the clicked image in the carousel
+            expandedImg.style.display = "block"; // Display the expanded image view
+        }
+        
+        function show(index) {
+            const expandedImg = document.getElementById('expandedImg');
+            
+            // Set the source of the expanded image
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            
+            // Remove 'active' class from all items
+            carouselItems.forEach(item => item.classList.remove('active'));
+    
+            // Set the clicked image as active
+            if (index < carouselItems.length) {
+                carouselItems[index].classList.add('active');
+            }
+            
+            // Optionally, you could also set it to the background if needed
+            // expandedImg.style.backgroundImage = `url(${carouselItems[index].querySelector('img').src})`;
+        }
+    
+        // Control to show previous image
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + photo.length) % photo.length; // Loop to end if goes past 0
+            show(currentIndex);
+        }
+    
+        // Control to show next image
+        function showNext() {
+            currentIndex = (currentIndex + 1) % photo.length; // Loop back to start if goes past end
+            show(currentIndex);
+        }
+    
+        // Link the buttons to the functions
+        document.querySelector('.carousel-control-prev').addEventListener('click', showPrev);
+        document.querySelector('.carousel-control-next').addEventListener('click', showNext);
+    
+        // Close functionality
+        const expandedImg = document.getElementById('expandedImg');
+        expandedImg.onclick = function() {
+            expandedImg.style.display = "none";
+        } {% endcomment %}
+    {% comment %} let currentIndex = 0;
+
+    function expandImg(imgElement) {
+        const expandedImg = document.getElementById('expandedImg');
+        currentIndex = parseInt(imgElement.dataset.index);
+        show(currentIndex);
+        expandedImg.style.display = "block";
+    }
+
+    function show(index) {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        carouselItems.forEach(item => item.classList.remove('active'));
+        carouselItems[index].classList.add('active');
+    }
+
+    function changeSlide(direction) {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        currentIndex = (currentIndex + direction + carouselItems.length) % carouselItems.length; // Wrap around
+        show(currentIndex);
+    }
+
+    document.getElementById('expandedImg').onclick = function() {
+        this.style.display = "none"; // Close the expanded view
+    }; {% endcomment %}
+</script>
+
+{% endblock %}
+
+

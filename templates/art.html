@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}
+Art Page
+{% endblock title %}
+{% load static %}
+<style>
+    
+    
+    
+    .img-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        
+        
+    }
+    .img-container img{
+        width: 400px;
+        height: 300px;
+        
+        
+    }
+    .img-container img:hover{
+        filter:grayscale(1);
+        transform: scale(0.8) 
+        
+
+    }
+
+</style>
+
+{% block content %}
+<div class='home-container'>
+    <h4>Photo Paradise</h4>
+    <p>Explore the beauty of Nature and Photography</p>
+    <p>A picture is worth a thousand words ,but a moment is worth a lifetime.</p>
+    <p>Feel free to add more content to this page as needed.</p>
+</div>
+
+  <h4>Some popular images:</h4>
+  <br><br>
+<div class='img-container'>
+     
+    {% for n in photo %}
+        <img src='{{ n.image.url }}' alt='{{ n.title }}'>
+    {% endfor %}
+    
+</div>
+
+
+
+
+
+{% endblock content %}

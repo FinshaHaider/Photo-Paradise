@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Snow
+{% endblock title %}
+
+
+{% block content %}
+
+<h1>Snow</h1>
+
+<h2>Snowfall</h2>
+
+<p>Snowfall is a natural phenomenon that occurs when the Earth's atmosphere overcomes the weight of liquid water. As water freezes, it condenses into tiny ice crystals, which fall down as snowflakes. The snowfall can occur in various locations, from mountains to valleys, depending on the weather conditions and the Earth's climate.</p>
+{% comment %} 
+<h2>Snowflake Formation</h2>
+
+<p>Snowflake formation occurs when water freezes at temperatures between 0°C and -18°C (32°F and -32°F). As the water evaporates, it condenses into tiny ice crystals, which then grow into the shape of a snowflake. The size of the snowflake can vary, with the largest being the largest ice crystals found on Earth. Snowflakes are made up of water, tiny ice
+    crystals, and a layer of air between them.</p>
+    <p>Snowflakes can form in various ways, such as from melting ice sheets, glaciers, or snowstorms. Some snowflakes may grow into large ice crystals, while others may become smaller ice particles. Snowflakes can also be formed from the accumulation of snow on the ground or from the melting of ice in the Arctic.</p>
+    
+<h2>Snowfall Patterns</h2>
+
+<p>Snowfall patterns can vary greatly depending on the weather conditions and the Earth's climate. Some common snowfall patterns include:</p>
+<ul>
+    <li>Snowflake Cluster: When snowflakes fall in close proximity, they form a cluster called a snowflake cluster.</li>
+    <li>Snowflake Flock: When a group of snowflakes collectively fall in a single area, they form a snowflake flock.</li>
+    <li>Snowflake Tower: When snowflakes fall in a line or column, they form a snowflake tower.</li>
+    <li>Snowflake Pile: When snowflakes fall in a specific area, they form a snowflake pile.</li>
+    <li>Snowflake Belt: When snowflakes fall in a continuous line, they form a snowflake belt.</li> {% endcomment %}
+    {% comment %} <li>Snowflake Field: When snowflakes fall in a uniform pattern, they form a snowflake field.</li>
+    <li>Snowflake Rain: When snowflakes fall in a steady stream of rain, they form a snowflake rain.</li>
+    <li>Snowflake Spike: When snowflakes fall in a spiral pattern, they form a snowflake spike.</li>
+    <li>Snowflake Tornado: When snowflakes fall in a series of rapidly moving, rotating clouds, they form a snowflake tornado.</li>
+    <li>Snowflake Shower: When snowflakes fall in a series of rapidly moving, rotating clouds, they form a snowflake shower.</li>
+    <li>Snowflake Storm: When snowflakes fall in a series of rapidly moving, rotating clouds, they form a snowflake storm.</li> {% endcomment %}
+</ul>
+
+{% comment %} <h2>Snowfall Duration and Frequency</h2>
+
+<p>Snowfall duration and frequency can vary greatly depending on the weather conditions and the Earth's climate. Some common snowfall durations include:</p>
+<ul>
+    <li>Short: Snowfall can last for a few minutes to a few hours.</li>
+    <li>Medium: Snowfall can last for several hours to several days.</li>
+    <li>Long: Snowfall can last for several days to several weeks.</li> {% endcomment %}
+    {% comment %} <li>Very Long: Snowfall can last for several weeks to several months.</li>
+    <li>Extreme: Snowfall can last for several months to several years.</li> {% endcomment %}
+</ul>
+
+{% for n in photo %}
+<img src='{{ n.image.url }}' alt='{{ n.title }}'>
+{% endfor %}
+
+
+{% endblock content %}

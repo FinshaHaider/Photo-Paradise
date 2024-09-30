@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}
+Home Page
+{% endblock title %}
+{% load static %}
+<style>
+    
+    
+     
+    .img-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        
+        
+    }
+    .img-container .img-bg{
+        width: 400px;
+        height: 300px;
+        ;
+        
+        
+    }
+    .img-container .img-bg:hover{
+        filter:grayscale(1);
+        transform: scale(-0.8) 
+        
+
+    }
+
+</style>
+
+
+{% block content %}
+<div class='home-container'>
+<h4>Photo Paradise</h4>
+<p>Explore the beauty of Nature and Photography</p>
+<p>A picture is worth a thousand words ,but a moment is worth a lifetime.</p>
+<p>Feel free to add more content to this page as needed.</p>
+</div>
+
+<h4>Some popular images:</h4>
+ <br><br>
+ <div class='img-container'>
+     
+    {% for n in photo %}
+    <img src='{{ n.image.url }}' alt='{{ n.title }}' class='img-bg'>
+{% endfor %}
+
+    
+       
+    
+</div>
+
+
+
+
+
+{% endblock content %}
+<script>
+    // Add your JavaScript here
+    const galleryItem=documwnt.getElementByClassName("gallery-item");
+    const boxContainer=documwnt.createElement("div");
+    const boxContent=documwnt.createElement("div");
+    const boxImg=documwnt.createElement("div");
+    const boxPrev=documwnt.createElement("div");
+    const boxNext=documwnt.createElement("div")
+
+    // add class to boxContainer
+    boxContainer.classList.add("box-container");
+    boxContent.classList.add("box-content");
+    boxImg.classList.add("fa","fa-angle-left","box-prev");
+    boxPrev.classList.add("fa","fa-angle-right","box-next");
+    boxNext.classList.add("box-container");
+
+    boxContainer.appendChild(boxContent)
+    boxContent.appendChild(boximg)
+    boxContent.appendChild(boxPrev)
+    boxContent.appendChild(boxNext)
+    document.body.appendChild(boxContainer)
+    
+
+    let index=1;
+    function showBox(n){
+        if(n>galleryItem.length){
+            index=1;
+        }
+        else if(n<1){
+            index=galleryItem.length;
+        }
+        let imageLocation=galleryItem[index-1]children[0].getAttribute("src"){
+            boxImg[i].style.display="none";
+        }
+        galleryItem[index-1].style.display="block";
+    }
+
+    // add style to boxContainer
+    boxContainer.style.position="relative";
+    boxContainer.style.display="inline-block";
+    boxContainer.style.width="300px";
+    boxContainer.style.height="200px";
+    boxContainer.style.margin="10px";
+    boxContainer.style.backgroundColor="rgba(0,0,0,0.5)";
+    boxContainer.style.color="white";
+    boxContainer.style.transition="0.3s";
+    boxContent.style.position="relative";
+    boxContent.style.width="300px";
+    boxContent.style.height="200px";
+    boxContent.style.display="flex";
+    boxContent.style.justify-content="center";
+
+</script>

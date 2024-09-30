@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+ Nature  Images
+{% endblock title %}
+
+
+{% block content %}
+
+<h4>Nature</h4>
+
+<p>This section showcases some beautiful photos of nature.</p>
+
+<p>Click on the images to see the full size.</p>
+ <br><br>
+ <h5>Some popular images:</h5>
+
+
+
+
+    
+    
+
+    {% for n in photo %}
+        <img src='{{ n.image.url }}' alt='{{ n.title }}'>
+    {% endfor %}
+
+
+
+{% endblock content %}
+
